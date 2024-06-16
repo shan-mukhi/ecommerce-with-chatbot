@@ -1,0 +1,45 @@
+The MVC (Model-View-Controller) pattern separates an application into
+three interconnected components: the Model (data and business logic),
+the View (presentation layer), and the Controller (handles user input and updates the model).
+This separation enhances code maintainability, scalability, and facilitates easier testing and development of user interfaces.
+SON Web Token (JWT)
+A JSON Web Token (JWT) is a secure way to transmit information between parties as a JSON object. It consists of three parts: a header, a payload, and a signature.
+
+Components of jwt.sign
+Payload:
+
+{ userId: user.\_id }
+This is the information you want to store in the token. Here, it includes the userId of the user who is logging in. This information is encoded into the token.
+Secret Key:
+
+process.env.JWT_SECRET
+This is a secret key known only to your server. It is used to sign the JWT, which means it ensures the token's authenticity. It's crucial to keep this secret and not expose it publicly.
+Options:
+
+{ expiresIn: '1h' }
+This sets an expiration time for the token. After 1h (1 hour), the token will expire and become invalid. This adds a layer of security by limiting the time a token can be used.
+Why Use JWT?
+Authentication: After a user logs in successfully, you generate a JWT. This token can then be sent back to the user and stored (usually in the browser's local storage or a cookie).
+
+Stateless: JWTs are stateless, meaning your server doesn't need to keep track of logged-in users. This makes it scalable because each request can be independently verified using the token.
+
+Secure: JWTs are digitally signed, ensuring that the token hasn't been tampered with. As long as the secret key (JWT_SECRET) is secure, the integrity of the token is maintained.
+
+Example Usage:
+When a user logs in:
+
+You validate their credentials (email and password).
+If valid, you generate a JWT using jwt.sign with their userId in the payload.
+This token is then sent back to the user's browser or application and should be included in subsequent requests to authenticate and authorize access.
+Verification:
+When the user makes subsequent requests to your server:
+
+They include the JWT in the request (often in the Authorization header).
+Your server verifies the token using jwt.verify (or equivalent) and checks if it's valid and hasn't expired.
+If valid, the server extracts information from the token (like userId) and processes the request accordingly.
+Security Note:
+Keep Secret Secure: Protect your JWT_SECRET like you would protect passwords. It should be stored securely and not exposed publicly.
+
+Expiration: Set reasonable expiration times (expiresIn) based on your application's security needs. Shorter expirations add more security but might require more frequent re-authentication.
+
+By using JWTs in your authentication process, you ensure secure communication and stateless authentication in your Node.js application.
