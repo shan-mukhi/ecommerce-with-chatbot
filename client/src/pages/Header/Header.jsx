@@ -11,7 +11,12 @@ export default function Header() {
    const handleLogout = () => {
     dispatch(logout());
     toast.success("Logged out successfully");
-    // Add any additional logout logic here, such as redirecting or clearing local storage
+ 
+  };
+  const handleDashboard = () => {
+    dispatch(logout());
+    toast.success("Logged out successfully");
+ 
   };
 
   return (
@@ -27,12 +32,21 @@ export default function Header() {
           </NavLink>
           <div className="flex items-center lg:order-2">
             {isAuthenticated ? (
+              <>
               <button
                 onClick={handleLogout}
                 className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
               >
                 Logout
               </button>
+
+               <button
+               onClick={handleDashboard}
+               className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+             >
+               Dashboard
+             </button>
+             </>
             ) : (
               <>
                 <NavLink
